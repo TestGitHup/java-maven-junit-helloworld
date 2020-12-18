@@ -15,15 +15,15 @@ pipeline {
 
     stage('report') {
       parallel {
-        stage('report/archive') {
+        stage('archive') {
           steps {
-            sh '**/target/surefire-reports/TEST-*.xml'
+            archiveArtifacts 'target/*.jar'
           }
         }
 
         stage('junit') {
           steps {
-            sh 'target/*.jar'
+            junit '**/target/surefire-reports/TEST-*.xml'
           }
         }
 
